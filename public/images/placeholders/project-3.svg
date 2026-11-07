@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000" role="img" aria-label="Sample dashboard placeholder">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0a0a0a"/>
+      <stop offset="1" stop-color="#191919"/>
+    </linearGradient>
+    <linearGradient id="metal" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f4f4f4"/>
+      <stop offset="0.55" stop-color="#a9a9a9"/>
+      <stop offset="1" stop-color="#e2e2e2"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="1000" fill="url(#bg)"/>
+  <rect x="60" y="60" width="300" height="880" rx="24" fill="#121212" stroke="#ffffff" stroke-opacity="0.08"/>
+  <rect x="390" y="60" width="1150" height="880" rx="24" fill="#0f0f0f" stroke="#ffffff" stroke-opacity="0.08"/>
+  <circle cx="110" cy="115" r="16" fill="url(#metal)"/>
+  <rect x="140" y="106" width="120" height="16" rx="8" fill="#6f6f6f"/>
+  <rect x="90" y="200" width="240" height="44" rx="12" fill="#222222"/>
+  <rect x="90" y="260" width="240" height="44" rx="12" fill="#181818"/>
+  <rect x="90" y="320" width="240" height="44" rx="12" fill="#181818"/>
+  <rect x="90" y="380" width="240" height="44" rx="12" fill="#181818"/>
+  <text x="430" y="130" font-family="Inter, Helvetica, Arial, sans-serif" font-size="30" font-weight="600" fill="#e5e5e5">Dashboard overview</text>
+  <rect x="430" y="180" width="330" height="170" rx="18" fill="#171717" stroke="#ffffff" stroke-opacity="0.08"/>
+  <rect x="790" y="180" width="330" height="170" rx="18" fill="#171717" stroke="#ffffff" stroke-opacity="0.08"/>
+  <rect x="1150" y="180" width="330" height="170" rx="18" fill="#171717" stroke="#ffffff" stroke-opacity="0.08"/>
+  <rect x="460" y="215" width="120" height="14" rx="7" fill="#5f5f5f"/>
+  <rect x="460" y="255" width="190" height="32" rx="10" fill="url(#metal)"/>
+  <rect x="820" y="215" width="120" height="14" rx="7" fill="#5f5f5f"/>
+  <rect x="820" y="255" width="150" height="32" rx="10" fill="#8d8d8d"/>
+  <rect x="1180" y="215" width="120" height="14" rx="7" fill="#5f5f5f"/>
+  <rect x="1180" y="255" width="170" height="32" rx="10" fill="#6e6e6e"/>
+  <rect x="430" y="390" width="1050" height="500" rx="18" fill="#141414" stroke="#ffffff" stroke-opacity="0.08"/>
+  <path d="M480 800 C600 700 700 760 820 620 C940 480 1040 640 1160 520 C1280 400 1380 470 1440 420" fill="none" stroke="url(#metal)" stroke-width="4" stroke-linecap="round"/>
+  <text x="800" y="930" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="22" letter-spacing="10" fill="#6f6f6f">SAMPLE DASHBOARD CONCEPT</text>
+</svg>

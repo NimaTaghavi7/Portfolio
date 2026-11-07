@@ -1,0 +1,262 @@
+// Prisma schema for the Nima Taghavi portfolio.
+// Local development uses `prisma dev` (embedded PostgreSQL); production uses
+// any managed PostgreSQL instance. Both share this schema and the migration
+// history in `prisma/migrations`.
+
+generator client {
+  provider = "prisma-client"
+  output   = "../lib/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Role {
+  ROOT
+  ADMIN
+}
+
+enum MessageStatus {
+  NEW
+  READ
+  ARCHIVED
+}
+
+model User {
+  id             String   @id @default(cuid())
+  name           String
+  email          String   @unique
+  passwordHash   String
+  role           Role     @default(ADMIN)
+  /// Incremented on password/email changes to invalidate existing JWTs.
+  sessionVersion Int      @default(0)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+/// Shared fixed-window rate limiting across serverless instances.
+/// Keys are hashed before storage so emails/IPs are not kept in plain text.
+model RateLimit {
+  key     String   @id
+  count   Int      @default(0)
+  resetAt DateTime
+
+  @@index([resetAt])
+}
+
+/// Singleton row (id = "singleton") with profile, contact, social and SEO data.
+model SiteSettings {
+  id                  String   @id @default("singleton")
+  fullName            String   @default("Nima Taghavi")
+  displayName         String   @default("Nima Taghavi")
+  professionalTitleFa String   @default("Frontend Developer | Web Designer")
+  professionalTitleEn String   @default("Frontend Developer | Web Designer")
+  bioFa               String   @default("")
+  bioEn               String   @default("")
+  aboutFa             String   @default("")
+  aboutEn             String   @default("")
+  email               String?
+  phone               String?
+  locationFa          String?
+  locationEn          String?
+  availability        Boolean  @default(false)
+  availabilityFa      String?
+  availabilityEn      String?
+  avatarUrl           String?
+  heroImageUrl        String?
+  resumeUrl           String?
+
+  socialGithub    String?
+  socialLinkedin  String?
+  socialInstagram String?
+  socialTelegram  String?
+  socialX         String?
+  socialDribbble  String?
+  socialBehance   String?
+
+  seoTitleFa       String?
+  seoTitleEn       String?
+  seoDescriptionFa String?
+  seoDescriptionEn String?
+  keywordsFa       String[] @default([])
+  keywordsEn       String[] @default([])
+  ogImageUrl       String?
+
+  showStats  Boolean @default(true)
+  updatedAt  DateTime @updatedAt
+}
+
+/// Editable section copy, keyed by a stable identifier (e.g. "hero.greeting").
+model SiteText {
+  id        String   @id @default(cuid())
+  key       String   @unique
+  label     String
+  valueFa   String   @default("")
+  valueEn   String   @default("")
+  updatedAt DateTime @updatedAt
+}
+
+model SkillGroup {
+  id        String   @id @default(cuid())
+  nameFa    String
+  nameEn    String
+  icon      String?
+  order     Int      @default(0)
+  published Boolean  @default(true)
+  skills    Skill[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Skill {
+  id        String     @id @default(cuid())
+  name      String
+  groupId   String
+  group     SkillGroup @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  order     Int        @default(0)
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+
+  @@index([groupId])
+}
+
+model ProjectCategory {
+  id        String    @id @default(cuid())
+  slug      String    @unique
+  nameFa    String
+  nameEn    String
+  order     Int       @default(0)
+  projects  Project[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model Project {
+  id            String           @id @default(cuid())
+  slug          String           @unique
+  titleFa       String
+  titleEn       String
+  descriptionFa String           @default("")
+  descriptionEn String           @default("")
+  imageUrl      String?
+  gallery       String[]         @default([])
+  tools         String[]         @default([])
+  categoryId    String?
+  category      ProjectCategory? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+  companyFa     String?
+  companyEn     String?
+  year          Int?
+  liveUrl       String?
+  githubUrl     String?
+  featured      Boolean          @default(false)
+  published     Boolean          @default(false)
+  isPlaceholder Boolean          @default(false)
+  order         Int              @default(0)
+  createdAt     DateTime         @default(now())
+  updatedAt     DateTime         @updatedAt
+
+  @@index([categoryId])
+  @@index([published, order])
+}
+
+model Experience {
+  id            String   @id @default(cuid())
+  roleFa        String
+  roleEn        String
+  companyFa     String   @default("")
+  companyEn     String   @default("")
+  descriptionFa String   @default("")
+  descriptionEn String   @default("")
+  locationFa    String?
+  locationEn    String?
+  startDate     String
+  endDate       String?
+  current       Boolean  @default(false)
+  order         Int      @default(0)
+  published     Boolean  @default(true)
+  isPlaceholder Boolean  @default(false)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model Education {
+  id            String   @id @default(cuid())
+  degreeFa      String
+  degreeEn      String
+  institutionFa String   @default("")
+  institutionEn String   @default("")
+  descriptionFa String   @default("")
+  descriptionEn String   @default("")
+  locationFa    String?
+  locationEn    String?
+  startDate     String
+  endDate       String?
+  current       Boolean  @default(false)
+  order         Int      @default(0)
+  published     Boolean  @default(true)
+  isPlaceholder Boolean  @default(false)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+/// Optional numeric highlights. Left empty by default: no invented numbers.
+model Stat {
+  id            String   @id @default(cuid())
+  value         Int
+  suffix        String   @default("")
+  labelFa       String
+  labelEn       String
+  order         Int      @default(0)
+  published     Boolean  @default(true)
+  isPlaceholder Boolean  @default(false)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+/// Uploaded media stored in PostgreSQL so it survives serverless deployments.
+/// For very large libraries, replace this with S3/R2/Cloudinary and keep the
+/// same `/uploads/<id>` URL contract.
+model Media {
+  id        String   @id @default(cuid())
+  filename  String
+  mimeType  String
+  size      Int
+  data      Bytes
+  createdAt DateTime @default(now())
+
+  @@index([createdAt])
+}
+
+model ContactMessage {
+  id        String        @id @default(cuid())
+  name      String
+  email     String
+  subject   String
+  message   String
+  locale    String        @default("en")
+  status    MessageStatus @default(NEW)
+  ipHash    String?
+  userAgent String?
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+
+  @@index([status, createdAt])
+}
+
+model Note {
+  id        String   @id @default(cuid())
+  slug      String   @unique
+  titleFa   String
+  titleEn   String
+  excerptFa String   @default("")
+  excerptEn String   @default("")
+  contentFa String   @default("")
+  contentEn String   @default("")
+  tags      String[] @default([])
+  published Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([published, createdAt])
+}

@@ -1,0 +1,108 @@
+{
+  "nav": {
+    "home": "Home",
+    "skills": "Skills",
+    "projects": "Projects",
+    "about": "About",
+    "contact": "Contact",
+    "notes": "Notes",
+    "dashboard": "Dashboard"
+  },
+  "common": {
+    "language": "Language",
+    "theme": "Theme",
+    "themeDark": "Dark",
+    "themeLight": "Light",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "loading": "Loading…",
+    "sample": "Sample",
+    "placeholder": "Placeholder",
+    "viewLive": "View live demo",
+    "sourceCode": "Source code",
+    "readMore": "Read more",
+    "backHome": "Back to home",
+    "backToNotes": "Back to notes",
+    "noContent": "Nothing to show yet.",
+    "present": "Present",
+    "optional": "Optional"
+  },
+  "hero": {
+    "available": "Available for work",
+    "notAvailable": "Currently unavailable",
+    "downloadResume": "Download Resume",
+    "contactCta": "Let's talk"
+  },
+  "sections": {
+    "skills": "Skills",
+    "projects": "Projects",
+    "about": "About me",
+    "contact": "Contact",
+    "experience": "Experience",
+    "education": "Education"
+  },
+  "projects": {
+    "empty": "No projects published yet.",
+    "placeholderNote": "This is a sample project and can be replaced from the admin dashboard."
+  },
+  "skills": {
+    "empty": "No skills added yet."
+  },
+  "about": {
+    "empty": "No description added yet."
+  },
+  "contact": {
+    "name": "Full name",
+    "email": "Email",
+    "subject": "Subject",
+    "message": "Message",
+    "namePlaceholder": "Enter your name",
+    "emailPlaceholder": "example@domain.com",
+    "subjectPlaceholder": "e.g. Collaboration, question, feedback",
+    "messagePlaceholder": "Write your message…",
+    "submit": "Send message",
+    "sending": "Sending…",
+    "required": "Required",
+    "successTitle": "Your message was sent",
+    "successBody": "Thanks {name}. Your message is saved and I'll get back to you soon.",
+    "sendAnother": "Send another message",
+    "errorTitle": "Message could not be sent",
+    "errorBody": "Please try again. If the problem continues, come back later.",
+    "rateLimited": "Too many requests. Please try again in a few minutes.",
+    "notConfigured": "Email delivery is not configured; your message was saved to the database."
+  },
+  "validation": {
+    "nameMin": "Name must be at least 2 characters.",
+    "emailInvalid": "Enter a valid email address.",
+    "subjectMin": "Subject must be at least 2 characters.",
+    "subjectMax": "Subject must not exceed 100 characters.",
+    "messageMin": "Message must be at least 10 characters.",
+    "messageMax": "Message must not exceed 5000 characters."
+  },
+  "notes": {
+    "title": "Notes",
+    "empty": "No notes published yet.",
+    "notFound": "This note could not be found.",
+    "publishedOn": "Published on {date}",
+    "back": "Back to notes"
+  },
+  "footer": {
+    "rights": "All rights reserved."
+  },
+  "auth": {
+    "title": "Admin sign in",
+    "subtitle": "Sign in to manage the website content.",
+    "email": "Email",
+    "password": "Password",
+    "signIn": "Sign in",
+    "signingIn": "Signing in…",
+    "invalid": "Incorrect email or password.",
+    "signOut": "Sign out",
+    "noAccess": "This area is restricted to administrators."
+  },
+  "notFound": {
+    "title": "Page not found",
+    "body": "The address you are looking for does not exist or has moved.",
+    "back": "Back to home"
+  }
+}
