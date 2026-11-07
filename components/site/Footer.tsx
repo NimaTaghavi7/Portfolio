@@ -1,6 +1,7 @@
 import { ArrowUp, ArrowUpRight, Download, Mail, MapPin, Phone } from "lucide-react";
 import { getLocale, getTranslations } from "next-intl/server";
 
+import FooterHashLink from "@/components/site/FooterHashLink";
 import SocialLinks from "@/components/site/SocialLinks";
 import { getPathname } from "@/i18n/navigation";
 import { getSiteSettings, getSiteTexts, text } from "@/lib/content/site";
@@ -50,13 +51,6 @@ export default async function Footer() {
 
   return (
     <footer className="footer-shell relative mt-32 overflow-hidden border-t border-base-content/10">
-      <span
-        aria-hidden="true"
-        className="footer-watermark pointer-events-none absolute -top-16 end-0 select-none text-[12rem] font-bold leading-none tracking-tighter sm:text-[19rem]"
-      >
-        NT
-      </span>
-
       <div aria-hidden="true" className="pointer-events-none absolute inset-0">
         <div className="footer-aura footer-aura-end" />
         <div className="footer-aura footer-aura-start" />
@@ -84,8 +78,9 @@ export default async function Footer() {
             </p>
           </div>
 
-          <a
+          <FooterHashLink
             href={`${homeHref}#contact`}
+            hash="contact"
             className="footer-cta group inline-flex h-12 w-max items-center gap-3 rounded-full bg-primary px-6 text-sm font-semibold text-primary-content transition hover:-translate-y-0.5 hover:opacity-90"
           >
             {isFa ? "شروع گفتگو" : "Start a conversation"}
@@ -94,7 +89,7 @@ export default async function Footer() {
               aria-hidden="true"
               className="transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5"
             />
-          </a>
+          </FooterHashLink>
         </div>
 
         <div className="grid gap-12 py-14 sm:grid-cols-2 lg:grid-cols-[1.35fr_0.65fr_0.9fr] lg:gap-16 lg:py-16">
@@ -163,13 +158,23 @@ export default async function Footer() {
 
                 return (
                   <li key={link.label}>
-                    <a
-                      href={link.href}
-                      download={link.kind === "download" ? "" : undefined}
-                      className={className}
-                    >
-                      {content}
-                    </a>
+                    {link.kind === "anchor" ? (
+                      <FooterHashLink
+                        href={link.href}
+                        hash={link.href.split("#")[1] ?? ""}
+                        className={className}
+                      >
+                        {content}
+                      </FooterHashLink>
+                    ) : (
+                      <a
+                        href={link.href}
+                        download={link.kind === "download" ? "" : undefined}
+                        className={className}
+                      >
+                        {content}
+                      </a>
+                    )}
                   </li>
                 );
               })}

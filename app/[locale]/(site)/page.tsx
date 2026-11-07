@@ -2,6 +2,7 @@ import { getLocale } from "next-intl/server";
 
 import About from "@/components/site/home/About";
 import Contact from "@/components/site/home/Contact";
+import DeveloperWorkspace from "@/components/site/DeveloperWorkspace";
 import Hero from "@/components/site/home/Hero";
 import HomeMotion from "@/components/site/home/HomeMotion";
 import Marquee from "@/components/site/home/Marquee";
@@ -48,6 +49,7 @@ export default async function HomePage() {
       <Marquee items={marqueeItems} />
       {settings.showStats && <Stats stats={stats} locale={locale} />}
       <Skills groups={skillGroups} texts={texts} locale={locale} />
+      <DeveloperWorkspace locale={locale} />
       <Projects projects={projects} texts={texts} locale={locale} />
       <About
         settings={settings}

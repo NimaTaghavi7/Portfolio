@@ -32,26 +32,26 @@ const Preloader = () => {
       tl.fromTo(
         root.current,
         { autoAlpha: 1 },
-        { duration: 1.4, autoAlpha: 1 }
+        { duration: 0.45, autoAlpha: 1 }
       )
         .fromTo(
           split.chars,
           { yPercent: 120, opacity: 0 },
-          { yPercent: 0, opacity: 1, duration: 0.7, stagger: 0.04 },
-          0.2
+          { yPercent: 0, opacity: 1, duration: 0.4, stagger: 0.025 },
+          0.05
         )
         .fromTo(
           ".preloader-bar",
           { scaleX: 0 },
-          { scaleX: 1, duration: 1.0, ease: "power2.inOut" },
-          0.3
+          { scaleX: 1, duration: 0.45, ease: "power2.inOut" },
+          0.08
         )
         .to(
           ".preloader-fill",
-          { scaleX: 1, duration: 0.4, ease: "power2.in" },
-          1.4
+          { scaleX: 1, duration: 0.18, ease: "power2.in" },
+          0.5
         )
-        .to(root.current, { yPercent: -100, duration: 0.8, ease: "power4.inOut" }, "+=0.15");
+        .to(root.current, { yPercent: -100, duration: 0.45, ease: "power4.inOut" }, "+=0.05");
 
       split.revert();
       return () => {

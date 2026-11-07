@@ -71,7 +71,7 @@ function ChromeBlob({
   });
   return (
     <mesh ref={mesh} position={position}>
-      <sphereGeometry args={[radius, 96, 96]} />
+      <sphereGeometry args={[radius, 32, 32]} />
       <MeshDistortMaterial
         color={color}
         emissive={emissive}
@@ -114,10 +114,10 @@ export default function Hero3D() {
   return (
     <div ref={containerRef} className="absolute inset-0">
       <Canvas
-        dpr={[1, mobile ? 1.1 : tablet ? 1.25 : 1.4]}
+        dpr={[1, 1]}
         camera={{ position: [0, 0, 6], fov: 45 }}
         frameloop={inView ? "always" : "never"}
-        gl={{ antialias: true, alpha: true }}
+        gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
       >
         <ambientLight
           intensity={
@@ -215,7 +215,7 @@ export default function Hero3D() {
             </Float>
           </group>
           <Sparkles
-            count={mobile ? 26 : tablet ? 40 : 60}
+            count={mobile ? 12 : tablet ? 20 : 28}
             scale={mobile ? [3.2, 2.6, 2] : tablet ? [4, 3, 2.4] : [5, 3.5, 3]}
             size={mobile ? 1 : 1.2}
             speed={0.25}

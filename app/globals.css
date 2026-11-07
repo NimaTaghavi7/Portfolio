@@ -472,6 +472,28 @@ html[dir="rtl"] .animate-marquee {
   overflow-wrap: anywhere;
 }
 
+/* Monochrome syntax tokens for the developer workspace. */
+.token-comment { color: #6b6b6b; }
+.token-string { color: #d6d6d6; }
+.token-keyword { color: #f2f2f2; font-weight: 500; }
+.token-number { color: #a8a8a8; }
+.token-tag { color: #e8e8e8; }
+
+#workspace .overflow-auto {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.16) transparent;
+}
+
+#workspace .overflow-auto::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+#workspace .overflow-auto::-webkit-scrollbar-thumb {
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.16);
+}
+
 /* -------------------------------------------------------------------------- */
 /* Footer                                                                     */
 /* -------------------------------------------------------------------------- */

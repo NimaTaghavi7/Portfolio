@@ -2,11 +2,13 @@
 
 import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Search } from "lucide-react";
+import { useEffect, useState } from "react";
 
 import { Link } from "@/i18n/navigation";
 import { scrollToHash } from "@/lib/scroll";
 
+import CommandPalette from "./CommandPalette";
 import LanguageSwitcher from "./LanguageSwitcher";
 import MobileMenu from "./MobileMenu";
 import ThemeToggle from "./ThemeToggle";
@@ -22,6 +24,18 @@ export default function Header() {
   const t = useTranslations("nav");
   const pathname = usePathname();
   const isHome = pathname === "/" || pathname === "/fa";
+  const [paletteOpen, setPaletteOpen] = useState(false);
+
+  useEffect(() => {
+    const onKeyDown = (event: KeyboardEvent) => {
+      if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {
+        event.preventDefault();
+        setPaletteOpen((value) => !value);
+      }
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, []);
 
   const handleNav = (event: React.MouseEvent<HTMLAnchorElement>, hash: string) => {
     if (!isHome) return;
@@ -30,7 +44,8 @@ export default function Header() {
   };
 
   return (
-    <header className="relative z-40 bg-transparent pb-2 pt-4 sm:pb-4">
+    <>
+      <header className="relative z-40 bg-transparent pb-2 pt-4 sm:pb-4">
       <div className="container-page flex h-[4.5rem] items-center justify-between gap-6 sm:h-20">
         <Link href="/" className="group flex items-center gap-3">
           <span className="flex size-10 items-center justify-center rounded-xl border border-base-content/15 bg-base-200/40 text-sm font-semibold tracking-wide text-base-content transition-colors group-hover:border-base-content/35">
@@ -67,6 +82,26 @@ export default function Header() {
         </nav>
 
         <div className="flex items-center gap-2">
+          <button
+            type="button"
+            onClick={() => setPaletteOpen(true)}
+            className="hidden h-10 items-center gap-2 rounded-full border border-base-content/10 bg-base-200/30 px-3 font-mono text-[0.62rem] uppercase tracking-[0.1em] text-base-content/50 transition hover:border-base-content/25 hover:text-base-content md:inline-flex"
+            aria-label="Search sections and commands"
+          >
+            <Search size={14} aria-hidden="true" />
+            <span className="hidden xl:inline">Search</span>
+            <kbd className="rounded border border-base-content/10 bg-base-100/50 px-1.5 py-0.5 text-[0.55rem] text-base-content/35">
+              ⌘K
+            </kbd>
+          </button>
+          <button
+            type="button"
+            onClick={() => setPaletteOpen(true)}
+            className="inline-flex size-10 items-center justify-center rounded-full border border-base-content/10 text-base-content/60 transition hover:border-base-content/25 hover:text-base-content md:hidden"
+            aria-label="Search sections and commands"
+          >
+            <Search size={15} aria-hidden="true" />
+          </button>
           <LanguageSwitcher />
           <ThemeToggle />
           <Link
@@ -80,6 +115,12 @@ export default function Header() {
           <MobileMenu />
         </div>
       </div>
-    </header>
+      </header>
+      <CommandPalette
+        open={paletteOpen}
+        onClose={() => setPaletteOpen(false)}
+        resumeUrl="/resume.pdf"
+      />
+    </>
   );
 }
